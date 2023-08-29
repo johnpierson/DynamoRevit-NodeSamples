@@ -1,0 +1,368 @@
+{
+  "Uuid": "533bdaca-dbda-499b-a0dc-df5e7dc2fa93",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "getRevitNodes",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys\r\nimport clr\r\nclr.AddReference('DynamoRevitDS')\r\nimport Dynamo \r\n\t\t\r\n# access to the current Dynamo instance and workspace\r\ndynamoRevit = Dynamo.Applications.DynamoRevit()\r\ncurrentWorkspace = dynamoRevit.RevitDynamoModel.CurrentWorkspace\r\n\r\ncategories = []\r\nallRevitNodes = []\r\n\t\t\r\nallSearchEntries = dynamoRevit.RevitDynamoViewModel.Model.SearchModel.SearchEntries\r\n\r\nfor s in allSearchEntries:\r\n    if s.Categories[0] == \"Revit\":\r\n        categories.append(s.FullCategoryName)\r\n        nodeNameDescription = []\r\n        nodeNameDescription.append(s.Name)\r\n        nodeNameDescription.append(s.Description)\r\n        allRevitNodes.append(nodeNameDescription)\r\n        nodeNameDescription.clear\r\n    \r\n\r\n# Assign your output to the OUT variable.\r\nOUT = categories,allRevitNodes",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "bc6adac4190d447b8634cd0c378114c2",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "6d6792f4108f4dd08f81bf1a146b13f6",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e14a6bfea1c24dbbb6ef241951a81bde",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "Id": "835df857740f4e7a99ef4b25c54ece6f",
+      "NodeType": "FunctionNode",
+      "Inputs": [
+        {
+          "Id": "d0450242c5834e0e9db4fb54a8fb3330",
+          "Name": "list",
+          "Description": "List of items to group as sublists\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a1d860d8e2384142907b2ecdb40f347d",
+          "Name": "keys",
+          "Description": "Key values, one per item in the input list, used for grouping the items\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9a4cb065fae8424c84572ee67eea6a97",
+          "Name": "groups",
+          "Description": "list of sublists, with items grouped by like key values",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "49608846150c4cd586ba09ec5b3fd9d9",
+          "Name": "uniqueKeys",
+          "Description": "key value corresponding to each group",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "FunctionSignature": "DSCore.List.GroupByKey@var[]..[],var[]..[]",
+      "Replication": "Auto",
+      "Description": "Group items into sub-lists based on their like key values\n\nList.GroupByKey (list: var[]..[], keys: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "636ca3c4811b4dd890d49085b29d9942",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "0eb560e08d8c480f85ccb3f42e5076b6",
+          "Name": "value",
+          "Description": "value",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "028301ba861747f89143cb929ae2e267",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8f59b72f3e314f0d87192b797dde6c61",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "value[0];\nvalue[1];"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "Id": "04e1ac431f8546f2a940ab6f7581cf1e",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "087b21ba7dea43d2851d8323dd649489",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string",
+      "InputValue": "D:\\repos_john\\DynamoRevit-NodeSamples\\src\\_workingFiles\\{0}.xlsx"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "Id": "965034b7a68347fc923404511b030fe0",
+      "NodeType": "FunctionNode",
+      "Inputs": [
+        {
+          "Id": "0a7097d1d45f47b995d2d815aad6f81a",
+          "Name": "filePath",
+          "Description": "File representing the Excel workbook\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "50e2bad490ed4733b404f0cf57e8d051",
+          "Name": "sheetName",
+          "Description": "Name of the worksheet containing data\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "920336e870b34a789a0b47359190b940",
+          "Name": "data",
+          "Description": "Data to write to the spreadsheet\n\nvar[][]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4e74bdca19d946458beeeb82661928ed",
+          "Name": "startRow",
+          "Description": "Start row for writing data. Enter 0 for Row 1, 1 for Row 2, etc.\n\nint\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "651085b049ed408fb3a3a836c29e83ce",
+          "Name": "startColumn",
+          "Description": "Start column for writing data. Enter 0 for Column A, 1 for Column B, etc.\n\nint\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "199419074d9f489fb6e7ce0fa6a03d97",
+          "Name": "overWrite",
+          "Description": "Toggle to clear spreadsheet before writing\n\nbool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "78c81680742b4f07b571d1d6ff020847",
+          "Name": "writeAsString",
+          "Description": "Toggle to switch between writing cell values as strings\n\nbool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d61493bdcd5d4e9f8125a52564d851ed",
+          "Name": "bool",
+          "Description": "Boolean indicating if writing to spreadsheet is successful.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "FunctionSignature": "DSOffice.Data.OpenXMLExportExcel@string,string,var[][],int,int,bool,bool",
+      "Replication": "Auto",
+      "Description": "Write data to a Microsoft Excel spreadsheet by using the Open XML standard. Data is written by row with sublists to be written in successive rows. Rows and columns are zero-indexed; for example, the value in the data list at [0,0] will be written to cell A1. Null values and empty lists are written as empty cells.\n\nData.OpenXMLExportExcel (filePath: string, sheetName: string, data: var[][], startRow: int = 0, startColumn: int = 0, overWrite: bool = false, writeAsString: bool = false): bool"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "e14a6bfea1c24dbbb6ef241951a81bde",
+      "End": "0eb560e08d8c480f85ccb3f42e5076b6",
+      "Id": "d95172fba23d44cba2807dcdc3a56fa9",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "9a4cb065fae8424c84572ee67eea6a97",
+      "End": "920336e870b34a789a0b47359190b940",
+      "Id": "6329f8b59c3b4832ae3b33adf3454426",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "028301ba861747f89143cb929ae2e267",
+      "End": "a1d860d8e2384142907b2ecdb40f347d",
+      "Id": "f99a662b8a0f404fa533f5b790acc5fa",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "8f59b72f3e314f0d87192b797dde6c61",
+      "End": "d0450242c5834e0e9db4fb54a8fb3330",
+      "Id": "ab01d7362c8a4fc4bf6fe7acacbc72e4",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.18",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "6.0",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.18.1.5096",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "bc6adac4190d447b8634cd0c378114c2",
+        "Name": "Python Script",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 355.97635405081985,
+        "Y": 182.21956773493491
+      },
+      {
+        "Id": "835df857740f4e7a99ef4b25c54ece6f",
+        "Name": "List.GroupByKey",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 941.80559255714775,
+        "Y": 167.01053775517659
+      },
+      {
+        "Id": "636ca3c4811b4dd890d49085b29d9942",
+        "Name": "💣",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 669.8200566077478,
+        "Y": 175.53624083532389
+      },
+      {
+        "Id": "04e1ac431f8546f2a940ab6f7581cf1e",
+        "Name": "String",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 622.89536572448287,
+        "Y": -100.46053538334462
+      },
+      {
+        "Id": "965034b7a68347fc923404511b030fe0",
+        "Name": "Data.OpenXMLExportExcel",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1694.3618911106212,
+        "Y": 14.067390383360305
+      }
+    ],
+    "Annotations": [],
+    "X": -362.75948563006642,
+    "Y": 179.64293891031269,
+    "Zoom": 0.74352241638745864
+  }
+}
