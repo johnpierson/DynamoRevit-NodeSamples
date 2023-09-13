@@ -232,6 +232,114 @@
       "FunctionSignature": "DSOffice.Data.OpenXMLExportExcel@string,string,var[][],int,int,bool,bool",
       "Replication": "Auto",
       "Description": "Write data to a Microsoft Excel spreadsheet by using the Open XML standard. Data is written by row with sublists to be written in successive rows. Rows and columns are zero-indexed; for example, the value in the data list at [0,0] will be written to cell A1. Null values and empty lists are written as empty cells.\n\nData.OpenXMLExportExcel (filePath: string, sheetName: string, data: var[][], startRow: int = 0, startColumn: int = 0, overWrite: bool = false, writeAsString: bool = false): bool"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "Id": "c218a03c598646dd9ecd50473306ce35",
+      "NodeType": "FunctionNode",
+      "Inputs": [
+        {
+          "Id": "340ae31455c84a50be8dfae355ed3c69",
+          "Name": "list",
+          "Description": "List to get the item count of.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 3,
+          "UseLevels": true,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8ef7ed915c404c3daeeddea332dd8cf1",
+          "Name": "int",
+          "Description": "List length.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "FunctionSignature": "DSCore.List.Count@var[]..[]",
+      "Replication": "Auto",
+      "Description": "Returns the number of items stored in the given list.\n\nList.Count (list: var[]..[]): int"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "Id": "9419ff5e90b7484398860642379c1ac7",
+      "NodeType": "FunctionNode",
+      "Inputs": [
+        {
+          "Id": "ca124d59fa504930ac5d50f58257c413",
+          "Name": "str",
+          "Description": "The string to format.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b0f9b4692d454e80ba54ca4a454b3b83",
+          "Name": "args",
+          "Description": "The params (objects)\n\nvar[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d2351d8aefbf45ff9e39bdc20005c77d",
+          "Name": "str",
+          "Description": "The formatted string.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "FunctionSignature": "Rhythm.String.Modify.FormatWith@string,var[]",
+      "Replication": "Longest",
+      "Description": "Format input string with arguments. Made possible with Humanizer (https://github.com/Humanizr/Humanizer)\n\nModify.FormatWith (str: string, args: var[]): string"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "c07b6090774c49b9b39839cf9d23bf70",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "f2016992aece4e898741cf663df3d01b",
+          "Name": "count",
+          "Description": "count",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "30bb6a9c68f04327a1285045715b6560",
+          "Name": "name",
+          "Description": "name",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "09d7bdd8ab914135b0c4519bc4756939",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "count + \"-\" + name;"
     }
   ],
   "Connectors": [
@@ -248,6 +356,24 @@
       "IsHidden": "False"
     },
     {
+      "Start": "9a4cb065fae8424c84572ee67eea6a97",
+      "End": "340ae31455c84a50be8dfae355ed3c69",
+      "Id": "59b14e0add6e4a6c9d3715a3706cb2cc",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "49608846150c4cd586ba09ec5b3fd9d9",
+      "End": "50e2bad490ed4733b404f0cf57e8d051",
+      "Id": "b4e8419606934273a57cc58f4486bb4d",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "49608846150c4cd586ba09ec5b3fd9d9",
+      "End": "30bb6a9c68f04327a1285045715b6560",
+      "Id": "9d92c5c2de104cf08ade10d0fc93378c",
+      "IsHidden": "False"
+    },
+    {
       "Start": "028301ba861747f89143cb929ae2e267",
       "End": "a1d860d8e2384142907b2ecdb40f347d",
       "Id": "f99a662b8a0f404fa533f5b790acc5fa",
@@ -258,10 +384,43 @@
       "End": "d0450242c5834e0e9db4fb54a8fb3330",
       "Id": "ab01d7362c8a4fc4bf6fe7acacbc72e4",
       "IsHidden": "False"
+    },
+    {
+      "Start": "087b21ba7dea43d2851d8323dd649489",
+      "End": "ca124d59fa504930ac5d50f58257c413",
+      "Id": "cfa68934c525418681731ce60483d76b",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "8ef7ed915c404c3daeeddea332dd8cf1",
+      "End": "f2016992aece4e898741cf663df3d01b",
+      "Id": "5106e5e3640c448495da197cf6bcee08",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "d2351d8aefbf45ff9e39bdc20005c77d",
+      "End": "0a7097d1d45f47b995d2d815aad6f81a",
+      "Id": "27fbfd762d6c4df09248c5ae691627ac",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "09d7bdd8ab914135b0c4519bc4756939",
+      "End": "b0f9b4692d454e80ba54ca4a454b3b83",
+      "Id": "112b42a70fe54ae9aae90fdc801a4643",
+      "IsHidden": "False"
     }
   ],
   "Dependencies": [],
-  "NodeLibraryDependencies": [],
+  "NodeLibraryDependencies": [
+    {
+      "Name": "Rhythm",
+      "Version": "2023.9.1",
+      "ReferenceType": "Package",
+      "Nodes": [
+        "9419ff5e90b7484398860642379c1ac7"
+      ]
+    }
+  ],
   "Thumbnail": "",
   "GraphDocumentationURL": null,
   "ExtensionWorkspaceData": [
@@ -356,13 +515,43 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "ShowGeometry": true,
-        "X": 1694.3618911106212,
-        "Y": 14.067390383360305
+        "X": 2208.6705273693115,
+        "Y": 56.029810496517143
+      },
+      {
+        "Id": "c218a03c598646dd9ecd50473306ce35",
+        "Name": "List.Count",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1365.8760828817396,
+        "Y": 387.82564551412383
+      },
+      {
+        "Id": "9419ff5e90b7484398860642379c1ac7",
+        "Name": "ʳʰʸᵗʰᵐ|Modify.FormatWith",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1538.0617175834575,
+        "Y": -173.79309201936366
+      },
+      {
+        "Id": "c07b6090774c49b9b39839cf9d23bf70",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1598.722015013966,
+        "Y": 307.80970141660043
       }
     ],
     "Annotations": [],
-    "X": -362.75948563006642,
-    "Y": 179.64293891031269,
-    "Zoom": 0.74352241638745864
+    "X": -403.84395183720517,
+    "Y": 153.421738025506,
+    "Zoom": 0.69171235837242218
   }
 }
